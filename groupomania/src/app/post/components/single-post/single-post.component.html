@@ -1,0 +1,37 @@
+<div class="post" *ngIf="Post$ | async as post">
+    <a routerLink="/groupo">retour</a>
+    <div *ngIf="!update">
+        <button (click)="onUpdate()">modifier</button>
+        <div class="post-body">
+            <p> {{post.userId}} </p>
+            <h2> {{post.name}} </h2>
+            <p> {{post.post}} </p>
+            <img *ngIf="post.imageUrl" [src]="post.imageUrl" [alt]="post.name" />
+        </div>
+        <div class="post-comment">
+            <button class="like" [ngClass]="{liked: like === 'liked' }" 
+                (click)="onLike(post._id)">
+                <span>{{like}} {{post.likes}} </span>
+            </button>
+            <button class="like" [ngClass]="{disliked: dislike === 'disliked' }" 
+                (click)="onDislike(post._id)">
+                <span>{{dislike}} {{post.dislikes}}</span>
+            </button>
+            <button class="delete" (click)="onDeletePost()">supprimer</button>
+            <button (click)="onComment()">Laissez un commentaire</button>
+        </div>
+    </div>
+    <div *ngIf="update">
+        <input [(ngModel)]="post.name" name="nameUpdate">
+        <input [(ngModel)]="post.post" name="postUpdate">
+        <input (change)="onChangeFile($event)" type="file">
+        <img class="image" [src]="image" *ngIf="image" />
+        <button (click)="onModifiedPost()">enregister</button>
+    </div>
+</div>
+
+<div class="comment" *ngIf="Comment$ | async as comment">
+    <p>comment.userId</p>
+    <p> {{comment.comment}} </p>
+    <button>delete</button>
+</div>

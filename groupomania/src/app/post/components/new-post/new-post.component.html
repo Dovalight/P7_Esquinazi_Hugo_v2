@@ -1,0 +1,28 @@
+<div class="form-card">
+    <h2>Nouveau post</h2>
+    <form [formGroup]="postForm">   
+        <div class="form-group">
+            <label for="name">Nom</label>
+            <input id="name" type="text" formControlName="name">
+        </div>
+        <div class="form-group">
+            <label for="post">post</label>
+            <textarea id="post" type="text" formControlName="post" rows="4">
+            </textarea>
+        </div>
+        <div class="form-group">
+            <label for="imageUrl">URL de l'image</label>
+            <input (change)="onChangeFile($event)" type="file">
+            <img class="image" [src]="image" *ngIf="image" />
+        </div>
+        <div class="action-buttons">
+            <button type="submit" (click)="onSubmitForm()" [disabled]="postForm.invalid">Enregistrer</button>
+        </div>
+    </form>
+</div>
+
+<div class="post-card" *ngIf="postPreview$ | async as post">
+    <h2> {{post.name}} </h2>
+    <p> {{post.post}} </p>
+    <img *ngIf="post.imageUrl" [src]="post.imageUrl" [alt]="post.name" />
+</div>

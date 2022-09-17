@@ -1,0 +1,30 @@
+.post{
+    height: 250px;
+    width: 400px;
+     border: solid 3px #EC1C24 ;
+     background: #FFD7D7;
+     color: #4E5166;
+     margin: 15px;
+     padding: 5px;
+ }
+ 
+ img{
+     width: 100%;
+ }
+ 
+ .post-comment{
+     display: flex;
+     justify-content: space-around;
+ }
+ 
+ .like{
+     border: solid 2px #4E5166;
+     padding: 3px;
+ }
+ 
+ button{
+     border: solid 2px #4E5166;
+     background: #EC1C24;
+     width: 40%;
+     height: 35px;
+ }

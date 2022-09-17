@@ -1,0 +1,20 @@
+header{
+    display: flex;
+    justify-content: space-between;
+    padding: 25px;
+    border: solid 5px darken(#4E5166, 8%);
+    background: #4E5166;
+}
+
+a{
+    padding: 3px 10px;
+    background: darken( #FFD7D7 , 8%) ;
+    border: solid 1px #EC1C24;
+    margin: 0 5px;
+    color: #EC1C24;
+    font-weight: bold;
+}
+a:hover{
+    background: darken( #FFD7D7 , 10%) ;
+    color: #4E5166;
+}

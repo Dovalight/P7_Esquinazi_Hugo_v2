@@ -1,0 +1,39 @@
+.post{
+    
+    border: solid 3px #EC1C24 ;
+    background: #FFD7D7;
+    color: #4E5166;
+    margin: auto;
+    margin-top: 55px !important ;
+    padding: 5px;
+    width: 400px;
+}
+
+img{
+    width: 100%;
+}
+
+.post-comment{
+    display: flex;
+    justify-content: space-around;
+}
+
+.like{
+    border: solid 2px #4E5166;
+    padding: 3px;
+    width: 20%;
+}
+
+.liked{
+    color: green;
+    background: lightgreen;
+}
+
+.disliked{
+    color: darkblue;
+    background: lightblue;
+}
+
+.delete{
+    width: 30%;
+}
