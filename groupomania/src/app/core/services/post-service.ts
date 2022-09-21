@@ -22,28 +22,16 @@ export class PostService{
       return this.http.get<post>(`http://localhost:3000/api/publication/${postId}`, {headers: newHeader})
     }
 
-    addPost(formValue: post): Observable<any>{
+    addPost(formValue: any): Observable<any>{
       const token = sessionStorage.getItem('token');
       const newHeader = new HttpHeaders().set('Authorization', 'Bearer '+ token);
-      const post: post = {
-        ...formValue,
-        likes: 0,
-        dislikes:0,
-        userLiked:[], 
-        userDisliked:[]
-      };
-      return this.http.post('http://localhost:3000/api/publication', post, {headers: newHeader});
+      return this.http.post('http://localhost:3000/api/publication', formValue, {headers: newHeader});
     }
 
-    modifyPost(postId: string): Observable<post>{
+    modifyPost(postId: string, updateValue: any): Observable<post>{
       const token = sessionStorage.getItem('token');
       const newHeader = new HttpHeaders().set('Authorization', 'Bearer '+ token);
-      return this.getPostById(postId).pipe(
-        map(post => ({
-          ...post
-        })),
-        switchMap(updatedPost => this.http.put<post>(`http://localhost:3000/api/publication/${postId}`, updatedPost, {headers: newHeader}))
-      )
+      return this.http.put<post>(`http://localhost:3000/api/publication/${postId}`, updateValue, {headers: newHeader})
     }
 
     deletePost(postId: string): Observable<any>{
@@ -52,26 +40,23 @@ export class PostService{
       return this.http.delete<post>(`http://localhost:3000/api/publication/${postId}`, {headers: newHeader})
     }
 
-    likePost(postId: string, likeType: 'like' | 'liked'): Observable<post> {
-      
-      return this.getPostById(postId).pipe(
-        map(post => ({
-          ...post,
-          likes: post.likes + (likeType === 'like' ? 1 : -1)
-        })),
-        switchMap(updatedPost => this.http.put<post>(`http://localhost:3000/api/publication/${postId}`, updatedPost,))
-      );
-    }
-
-    dislikePost(postId: string, dislikeType: 'dislike' | 'disliked'): Observable<post> {
+    likePost(postId: string, userId: string, like: number): Observable<post> {
       const token = sessionStorage.getItem('token');
       const newHeader = new HttpHeaders().set('Authorization', 'Bearer '+ token);
-      return this.getPostById(postId).pipe(
-        map(post => ({
-          ...post,
-          dislikes: post.dislikes + (dislikeType === 'dislike' ? 1 : -1)
-        })),
-        switchMap(updatedPost => this.http.put<post>(`http://localhost:3000/api/publication/${postId}`, updatedPost, {headers: newHeader} ))
-      );
+      const body = {
+        userId,
+        like  
+      }
+      return this.http.post<post>(`http://localhost:3000/api/publication/${postId}/like`, body, {headers: newHeader});
+    }
+
+    dislikePost(postId: string, userId: string, dislike: number): Observable<post> {
+      const token = sessionStorage.getItem('token');
+      const newHeader = new HttpHeaders().set('Authorization', 'Bearer '+ token);
+      const body ={
+        userId,
+        dislike
+      }
+      return this.http.put<post>(`http://localhost:3000/api/publication/${postId}/like`, body, {headers: newHeader} );
     }
 }

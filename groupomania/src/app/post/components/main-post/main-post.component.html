@@ -1,10 +1,11 @@
 <div class="post">
+    <p> {{post.userId}} </p>
     <h2> {{post.name}} </h2>
     <p> {{post.post}} </p>
     <img *ngIf="post.imageUrl" [src]="post.imageUrl" [alt]="post.name" />
     <div class="post-comment">
-    <p class="like">like: {{post.likes}} </p>
-    <p class="like"> dislike: {{post.dislikes}} </p>
-    <button (click)="onComment()">voir les commentaire</button>
+        <p class="like">like: {{post.likes}} </p>
+        <p class="like"> dislike: {{post.dislikes}} </p>
+        <button (click)="onComment()">voir les commentaire</button>
     </div>
 </div>

@@ -96,7 +96,7 @@ exports.likePost = (req, res, next)=>{
                         $inc: {likes : 1},
                         $push: {usersLiked: req.body.userId},
                     })
-                .then(() => res.status(200).json({message: 'Post liked'}))
+                .then((result) => res.status(200).json({message: 'Post liked', result}))
                 .catch(error => res.status(400).json({error}));
                 break;
 

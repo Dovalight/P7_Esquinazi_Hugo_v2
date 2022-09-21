@@ -28,8 +28,6 @@ export class NewPostComponent implements OnInit {
       name:[null, Validators.required],
       post: [null, Validators.required],
       imageUrl: [null, Validators.pattern(this.urlRegex)]
-    }, {
-      updateOn: 'blur'
     });
     this.postPreview$ = this.postForm.valueChanges.pipe(
       map(formValue => ({
@@ -52,7 +50,12 @@ export class NewPostComponent implements OnInit {
   }
 
   onSubmitForm(): void{
-    this.postService.addPost(this.postForm.value).subscribe((result)=>{
+    const body = new FormData();
+    body.append('userId', sessionStorage.getItem('userId') ?? '')
+    body.append('name', this.postForm.value.name);
+    body.append('post', this.postForm.value.post);
+    body.append('image', this.file);
+    this.postService.addPost(body).subscribe((result)=>{
       console.log(result);
       this.router.navigateByUrl('/groupo');
     },

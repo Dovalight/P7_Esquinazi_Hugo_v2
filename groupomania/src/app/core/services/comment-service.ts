@@ -8,12 +8,33 @@ import { comment } from "../models/Comment.model";
     providedIn:'root'
 })
 export class CommentService{
+
+  comments: comment[] = [
+    {
+     userId: 'pablo',
+      comment: 'test'
+    },
+    {
+     userId: 'juan',
+     comment: 'test2'
+    }]
+
+    getComment(): comment[] {
+      return this.comments
+    }
+    
     constructor(private http: HttpClient){ }
 
     getAllComments(): Observable<comment[]>{
         const token = sessionStorage.getItem('token');
         const newHeader = new HttpHeaders().set('Authorization', 'Bearer '+ token);
         return this.http.get<comment[]>('http://localhost:3000/api/:post/comment', {headers: newHeader});
+    }
+
+    getCommentById(commentId: string): Observable<comment> {
+      const token = sessionStorage.getItem('token');
+      const newHeader = new HttpHeaders().set('Authorization', 'Bearer '+ token);
+      return this.http.get<comment>(`http://localhost:3000/api/:post/comment/${commentId}`, {headers: newHeader})
     }
 
     addComment(formValue: comment): Observable<any>{

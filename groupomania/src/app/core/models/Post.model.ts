@@ -6,6 +6,6 @@ export class post {
     imageUrl?: string
     likes!: number;
     dislikes!: number;
-    userLiked!:[];
-    userDisliked!:[];
+    userLiked: string[] = [];
+    userDisliked: string[] = [];
 }

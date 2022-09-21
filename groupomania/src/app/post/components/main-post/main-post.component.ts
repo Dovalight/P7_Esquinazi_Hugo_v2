@@ -12,8 +12,6 @@ export class MainPostComponent implements OnInit {
 
 @Input() post: Post = new Post;
 
- 
-
   constructor(private postServive: PostService,
     private router: Router) { }
 

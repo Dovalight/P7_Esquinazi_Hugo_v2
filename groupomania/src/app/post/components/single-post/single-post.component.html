@@ -1,4 +1,4 @@
-<div class="post" *ngIf="Post$ | async as post">
+<div class="post" *ngIf="post">
     <a routerLink="/groupo">retour</a>
     <div *ngIf="!update">
         <button (click)="onUpdate()">modifier</button>
@@ -28,10 +28,8 @@
         <img class="image" [src]="image" *ngIf="image" />
         <button (click)="onModifiedPost()">enregister</button>
     </div>
-</div>
-
-<div class="comment" *ngIf="Comment$ | async as comment">
-    <p>comment.userId</p>
-    <p> {{comment.comment}} </p>
-    <button>delete</button>
+    <div *ngIf="addComment">
+        <input [(ngModel)]="comment.comment" name="comment">
+        <button (click)="onAddComment()">commentez</button>
+    </div>
 </div>

@@ -1,4 +1,6 @@
-export class comment {
-    userId!: string;
-    comment!: string;
+export class comment {  
+    constructor(
+        public userId: string,
+        public comment: string
+    ){}
 }

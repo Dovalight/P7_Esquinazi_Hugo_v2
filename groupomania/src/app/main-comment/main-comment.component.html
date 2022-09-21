@@ -1,0 +1,12 @@
+<div class="comment">
+    <p>{{comment.userId}} </p>
+  <p>{{comment.comment}} </p>
+  <div>
+    <button (click)="onUpdate()">modifier</button>
+    <button (click)="onDeleteComm()">supprimer</button>
+    </div>
+</div>
+<div *ngIf="update">
+  <!--<input [(ngModel)]="comment.comment" name="commentUpdate">-->
+  <button (click)="onModifiedComment()">commentez</button>
+</div>
