@@ -1,18 +1,28 @@
 header{
     display: flex;
     justify-content: space-between;
-    padding: 25px;
+    align-items: flex-end;
+    padding: 10px;
     border: solid 5px darken(#4E5166, 8%);
     background: #4E5166;
+    border-radius: 20px;
+    margin: auto;
+    margin-top: 30px !important;
+    max-width: 1280px;
+}
+
+.logo{
+    width: 25%;
 }
 
 a{
     padding: 3px 10px;
     background: darken( #FFD7D7 , 8%) ;
     border: solid 1px #EC1C24;
-    margin: 0 5px;
+    margin: 0 15px;
     color: #EC1C24;
     font-weight: bold;
+    border-radius: 10px;
 }
 a:hover{
     background: darken( #FFD7D7 , 10%) ;

@@ -6,6 +6,8 @@ import { SinglePostComponent } from './components/single-post/single-post.compon
 import { NewPostComponent } from './components/new-post/new-post.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostRoutingModule } from './post-routing.module';
+import { MainCommentComponent } from '../main-comment/main-comment.component';
+import { CommentListComponent } from '../comment-list/comment-list.component';
 
 
 
@@ -14,7 +16,9 @@ import { PostRoutingModule } from './post-routing.module';
     MainPostComponent,
     PostListComponent,
     SinglePostComponent,
-    NewPostComponent
+    NewPostComponent,
+    MainCommentComponent,
+    CommentListComponent
   ],
   imports: [
     CommonModule,

@@ -1,6 +1,5 @@
 export class comment {  
-    constructor(
-        public userId: string,
-        public comment: string
-    ){}
+userId!: string;
+_id!: string;
+comment!: string;
 }

@@ -10,8 +10,8 @@
             <textarea id="post" type="text" formControlName="post" rows="4">
             </textarea>
         </div>
-        <div class="form-group">
-            <label for="imageUrl">URL de l'image</label>
+        <div class="form-group" class="image">
+            <label for="imageUrl">image</label>
             <input (change)="onChangeFile($event)" type="file">
             <img class="image" [src]="image" *ngIf="image" />
         </div>

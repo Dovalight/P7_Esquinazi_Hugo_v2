@@ -9,53 +9,39 @@ import { comment } from "../models/Comment.model";
 })
 export class CommentService{
 
-  comments: comment[] = [
-    {
-     userId: 'pablo',
-      comment: 'test'
-    },
-    {
-     userId: 'juan',
-     comment: 'test2'
-    }]
+  comments: comment[] = []
 
-    getComment(): comment[] {
-      return this.comments
-    }
     
     constructor(private http: HttpClient){ }
 
-    getAllComments(): Observable<comment[]>{
+    getAllComments(postId: string): Observable<comment[]>{
         const token = sessionStorage.getItem('token');
         const newHeader = new HttpHeaders().set('Authorization', 'Bearer '+ token);
-        return this.http.get<comment[]>('http://localhost:3000/api/:post/comment', {headers: newHeader});
+        return this.http.get<comment[]>(`http://localhost:3000/api/publication/${postId}/comment`, {headers: newHeader});
     }
 
-    getCommentById(commentId: string): Observable<comment> {
+    getCommentById(postId: string, commentId: string): Observable<comment> {
       const token = sessionStorage.getItem('token');
       const newHeader = new HttpHeaders().set('Authorization', 'Bearer '+ token);
-      return this.http.get<comment>(`http://localhost:3000/api/:post/comment/${commentId}`, {headers: newHeader})
+      return this.http.get<comment>(`http://localhost:3000/api/publication/${postId}/comment/${commentId}`, {headers: newHeader})
     }
 
-    addComment(formValue: comment): Observable<any>{
+    addComment(postId: string, formValue: any): Observable<any>{
         const token = sessionStorage.getItem('token');
         const newHeader = new HttpHeaders().set('Authorization', 'Bearer '+ token);
-        const comment: comment = {
-          ...formValue
-        };
-        return this.http.post('http://localhost:3000/api/:post/comment', comment, {headers: newHeader});
+        return this.http.post(`http://localhost:3000/api/publication/${postId}/comment`, formValue, {headers: newHeader});
       }
 
-      modifyComment(commentId: string):Observable<comment>{
+      modifyComment(postId: string, commentId: string):Observable<comment>{
         const token = sessionStorage.getItem('token');
         const newHeader = new HttpHeaders().set('Authorization', 'Bearer '+ token);
-        return this.http.put<comment>(`http://localhost:3000/api/:post/comment/${commentId}`, {headers: newHeader})
+        return this.http.put<comment>(`http://localhost:3000/api/publication/${postId}/comment/${commentId}`, {headers: newHeader})
       }
 
-      deleteComment(commentId: string){
+      deleteComment(postId: string, commentId: string){
         const token = sessionStorage.getItem('token');
         const newHeader = new HttpHeaders().set('Authorization', 'Bearer '+ token);
-        return this.http.delete<comment>(`http://localhost:3000/api/:post/comment/${commentId}`, {headers: newHeader})
+        return this.http.delete<comment>(`http://localhost:3000/api/publication/${postId}/comment/${commentId}`, {headers: newHeader})
       }
 
 }

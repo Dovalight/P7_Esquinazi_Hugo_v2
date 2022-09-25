@@ -1,10 +1,10 @@
 import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
 import { post as Post } from '../../../core/models/Post.model';
-import { comment as Comment} from 'src/app/core/models/Comment.model';
+import { comment as Comment} from '../../../core/models/Comment.model';
 import { PostService } from '../../../core/services/post-service';
-import { CommentService } from 'src/app/core/services/comment-service';
+import { CommentService } from '../../../core/services/comment-service';
+import { from } from 'rxjs';
 
 
 @Component({
@@ -19,23 +19,38 @@ dislike!: string;
 update: boolean = false;
 image: string = '';
 file: any;
-
-comment!: Comment; 
-addComment: boolean = false;
+comment: Comment = new Comment(); 
+commentaires: any[] = [];
+userId : string = '' ;
 
   constructor(private postServive: PostService,
     private commentService: CommentService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+   ) { }
 
   ngOnInit() {
     const postId = this.route.snapshot.params['id'];
+    this.userId = sessionStorage.getItem('userId')?? ''
     this.postServive.getPostById(postId).subscribe((result)=>{
-      this.post = result
+      this.post = result ;
+      console.log(this.post);
+      console.log(this.post.usersLiked.includes(this.userId));
+      this.commentService.getAllComments(this.post._id).subscribe((result)=>
+      {
+        this.commentaires = result;
+      },
+      (error)=>{
+        console.log(error);
+      })
     },
     (error)=>{
       console.log(error);
     });
+  }
+
+  onBack(){
+    this.router.navigateByUrl('/groupo');
   }
 
   onModifiedPost(){
@@ -83,18 +98,18 @@ addComment: boolean = false;
 
   onLike(postId: string){  
     const userId = sessionStorage.getItem('userId')?? ''
-    const like = this.post.userLiked ? this.post.userLiked.includes(userId) ? 0:1 : 1
+    const like = this.post.usersLiked ? this.post.usersLiked.includes(userId) ? 0:1 : 1
     this.postServive.likePost(postId, userId, like).subscribe((result) =>{
       console.log(result);
       if (like === 0){
         this.post.likes = this.post.likes - 1
-        this.post.userLiked.splice(this.post.userLiked.findIndex(x => x === userId), 1)  
+        this.post.usersLiked.splice(this.post.usersLiked.findIndex(x => x === userId), 1)  
       } else {
         this.post.likes = this.post.likes +1
-        if(this.post.userLiked){
-          this.post.userLiked.push(userId)
+        if(this.post.usersLiked){
+          this.post.usersLiked.push(userId)
         }else{
-          this.post.userLiked = [userId]
+          this.post.usersLiked = [userId]
         }
       }
       this.like = this.post.likes > 0 ? 'liked' : 'like'
@@ -106,18 +121,18 @@ addComment: boolean = false;
 
   onDislike(postId: string){
     const userId = sessionStorage.getItem('userId')?? ''
-    const dislike = this.post.userDisliked ? this.post.userDisliked.includes(userId) ? 0:1 : 1
-    this.postServive.dislikePost(postId, userId, dislike).subscribe((result)=>{
+    const dislike = this.post.usersDisliked ? this.post.usersDisliked.includes(userId) ? 0:-1 : -1
+    this.postServive.likePost(postId, userId, dislike).subscribe((result)=>{
       console.log(result)
       if(dislike === 0){
         this.post.dislikes = this.post.dislikes - 1
-        this.post.userDisliked.splice(this.post.userDisliked.findIndex(x => x=== userId), 1)
+        this.post.usersDisliked.splice(this.post.usersDisliked.findIndex(x => x === userId), 1)
       } else {
         this.post.dislikes = this.post.dislikes + 1
-        if(this.post.userDisliked){
-          this.post.userDisliked.push(userId)
+        if(this.post.usersDisliked){
+          this.post.usersDisliked.push(userId)
         }else {
-          this.post.userDisliked = [userId]
+          this.post.usersDisliked = [userId]
         }
       }
       this.dislike = this.post.dislikes > 0 ? 'disliked' : 'dislike'
@@ -126,21 +141,14 @@ addComment: boolean = false;
     });
   }
 
-  
-
-  onComment(){
-    this.addComment = true;
-  }
-
-  onAddComment(){
-    const commentBody = new FormData()
-    commentBody.append('userId', sessionStorage.getItem('userId') ?? '')
-    commentBody.append('comment', this.comment.comment)
-    /*this.commentService.addComment(commentBody).subscribe((result)=>{
+  onComment(): void{
+    this.commentService.addComment(this.post._id, this.comment).subscribe((result)=>{
       console.log(result);
+      this.router.navigateByUrl('/groupo');
     },
-    (error)=>{
+    (error)=> {
       console.log(error);
-    })*/
+    });
   }
+  
 }

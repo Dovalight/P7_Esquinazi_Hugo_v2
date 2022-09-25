@@ -22,7 +22,7 @@ exports.modifyComment = (req, res, next) => {
             if (comment.userId != req.auth.userId) {
                 res.status(401).json({message: 'non-autorisé'});
             } else { 
-                Post.updateOne({_id: req.params.id}, {...postObject, _id: req.params.id})
+                Comment.updateOne({_id: req.params.id}, {...postObject, _id: req.params.id})
                 .then(()=> res.status(200).json({message: 'Commmentaire modifié'}))
                 .catch(error => res.status(401).json({error}));
             }
@@ -36,7 +36,7 @@ exports.deleteComment = (req, res, next) => {
         if (comment.userId != req.auth.userId){
             res.status(401).json({message : 'non-autorisé'});
         } else {
-                Post.deleteOne({_id: req.params.id})
+                Comment.deleteOne({_id: req.params.id})
                 .then(()=> res.status(200).json({message: 'Post supprimé'}))
                 .catch(error => res.status(401).json({error}));
             }
@@ -44,7 +44,7 @@ exports.deleteComment = (req, res, next) => {
     };
 
 exports.getAllComment = (req, res, next) => {
-    Comment.find()
+    Comment.find({postId: req.params.post})
       .then(post => res.status(200).json(post))
       .catch(error => res.status(400).json({error}));
 };

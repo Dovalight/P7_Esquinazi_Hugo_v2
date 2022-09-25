@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { comment as Comment } from "../core/models/Comment.model";
+import { post as Post } from '../core/models/Post.model';
 import { CommentService } from '../core/services/comment-service';
 
 @Component({
@@ -15,6 +16,7 @@ export class MainCommentComponent implements OnInit {
   update: boolean = false;
 
 @Input() comment!: Comment;
+@Input() post : Post = new Post()
 
   constructor(private commentService: CommentService,
     private route: ActivatedRoute,
@@ -26,7 +28,7 @@ export class MainCommentComponent implements OnInit {
 
   onDeleteComm(){
     const commentId = this.route.snapshot.params['id'];
-    this.commentService.getCommentById(commentId).subscribe((result)=>{
+    this.commentService.getCommentById(this.post._id, commentId).subscribe((result)=>{
       console.log(result);
     },
     (error)=>{
@@ -42,7 +44,7 @@ export class MainCommentComponent implements OnInit {
     const commentBody = new FormData()
     commentBody.append("comment", this.comment.comment)
     const commentId = this.route.snapshot.params['id'];
-    this.commentService.modifyComment(commentId).subscribe((result)=>{
+    this.commentService.modifyComment(this.post._id, commentId).subscribe((result)=>{
       console.log(result);
     },
     (error)=>{

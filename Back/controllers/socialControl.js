@@ -104,7 +104,7 @@ exports.likePost = (req, res, next)=>{
                 Post.updateOne(
                     { _id: postLike.id },
                     {
-                        $inc: {dislikes: -1}, 
+                        $inc: {dislikes: 1}, 
                         $push: { usersDisliked: req.body.userId },
                     })
                     .then(() => res.status(200).json({message: 'Post disliked'}))

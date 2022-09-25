@@ -6,9 +6,9 @@
     margin-top: 100px !important;
     border: solid 10px darken(#4E5166, 8%);
     background: #4E5166;
-    max-width: 800px;
+    max-width: 700px;
     margin: auto;
-    border-radius: 5px;
+    border-radius: 15px;
 }
 
 img {
@@ -16,7 +16,7 @@ img {
 }
 
 form {
-    margin: 50px ;
+    margin: 30px ;
     display: flex;
     flex-direction: column;
     color: #4E5166;
@@ -29,16 +29,16 @@ label{
 }
 
 input{
-    margin: 15px;
+    margin-bottom: 15px;
     padding: 5px 0 5px 15px;
     border: solid 2px #EC1C24 ;
     background: #FFD7D7;
     font-size: 13px;
-    border-radius: 3px;
+    border-radius: 4px;
 }
 
 button{
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 5px;
     background:  darken(#FFD7D7 , 15%);
     color: #4E5166;

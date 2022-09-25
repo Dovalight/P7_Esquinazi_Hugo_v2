@@ -1,35 +1,44 @@
 <div class="post" *ngIf="post">
-    <a routerLink="/groupo">retour</a>
+    <div class="post-status">
+        <button class="back" (click)="onBack()">retour</button>
+        <button class="modify" (click)="onUpdate()">modifier</button>
+        
+    </div>
+    <div *ngIf="update" class="post-update">
+        <input class="post-input" [(ngModel)]="post.name" name="nameUpdate">
+        <input class="post-input" [(ngModel)]="post.post" name="postUpdate">
+        <input (change)="onChangeFile($event)" type="file">
+        <img class="image" [src]="image" *ngIf="image" />
+        <button class="save" (click)="onModifiedPost()">enregister</button>
+    </div>
     <div *ngIf="!update">
-        <button (click)="onUpdate()">modifier</button>
-        <div class="post-body">
+        <div class="post-body" >
             <p> {{post.userId}} </p>
             <h2> {{post.name}} </h2>
             <p> {{post.post}} </p>
             <img *ngIf="post.imageUrl" [src]="post.imageUrl" [alt]="post.name" />
         </div>
-        <div class="post-comment">
-            <button class="like" [ngClass]="{liked: like === 'liked' }" 
+        <div class="post-like">
+            <button class="like" 
+            [ngClass]="{liked: post.usersLiked ? post.usersLiked.includes(userId) ? true:false : false } " 
+            [disabled]="post.usersDisliked ? post.usersDisliked.includes(userId) ? true:false : false"
                 (click)="onLike(post._id)">
                 <span>{{like}} {{post.likes}} </span>
             </button>
-            <button class="like" [ngClass]="{disliked: dislike === 'disliked' }" 
+            <button class="delete" (click)="onDeletePost()">supprimer</button> 
+            <button class=" dislike" 
+            [ngClass]="{disliked: post.usersDisliked ? post.usersDisliked.includes(userId) ? true:false : false }" 
+            [disabled]="post.usersLiked ? post.usersLiked.includes(userId) ? true:false : false"
                 (click)="onDislike(post._id)">
                 <span>{{dislike}} {{post.dislikes}}</span>
-            </button>
-            <button class="delete" (click)="onDeletePost()">supprimer</button>
-            <button (click)="onComment()">Laissez un commentaire</button>
+            </button>        
         </div>
-    </div>
-    <div *ngIf="update">
-        <input [(ngModel)]="post.name" name="nameUpdate">
-        <input [(ngModel)]="post.post" name="postUpdate">
-        <input (change)="onChangeFile($event)" type="file">
-        <img class="image" [src]="image" *ngIf="image" />
-        <button (click)="onModifiedPost()">enregister</button>
-    </div>
-    <div *ngIf="addComment">
-        <input [(ngModel)]="comment.comment" name="comment">
-        <button (click)="onAddComment()">commentez</button>
-    </div>
+    </div> 
+</div>
+<div class="comment">
+    <form>
+        <input class="comment-input" [(ngModel)]="comment.comment" name="comment">
+        <button class="comment-button" type="submit" (click)="onComment()">commentez</button>
+    </form>
+    <app-main-comment *ngFor="let commentaire of commentaires" [comment]="commentaire" [post]="post"></app-main-comment>
 </div>

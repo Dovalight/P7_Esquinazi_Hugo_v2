@@ -57,6 +57,6 @@ export class PostService{
         userId,
         dislike
       }
-      return this.http.put<post>(`http://localhost:3000/api/publication/${postId}/like`, body, {headers: newHeader} );
+      return this.http.post<post>(`http://localhost:3000/api/publication/${postId}/like`, body, {headers: newHeader} );
     }
 }
