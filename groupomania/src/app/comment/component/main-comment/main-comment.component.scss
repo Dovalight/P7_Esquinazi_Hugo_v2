@@ -43,3 +43,8 @@
     padding: 7px;
     margin: 10px 0 10px 10px;
 }
+
+button:hover{
+    border: solid 2px #888eb8;
+    background: lighten(#353c74, 40%);
+}

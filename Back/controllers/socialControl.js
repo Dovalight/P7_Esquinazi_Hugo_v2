@@ -30,7 +30,7 @@ exports.modifyPost = (req, res, next)=>{
     delete postObject._userId;
     Post.findOne({_id: req.params.id})
         .then((post)=> {
-            if (post.userId != req.auth.userId) {
+            if (post.userId != req.auth.userId && !req.auth.moderator) {
                 res.status(401).json({message: 'non-autorisé'});
             } else { 
                 if(file){
@@ -52,7 +52,7 @@ exports.deletePost = (req, res, next)=>{
         console.log(post);
         console.log(post.userId);
         console.log(req.auth.userId);
-        if (post.userId != req.auth.userId){
+        if (post.userId != req.auth.userId && !req.auth.moderator){
             res.status(401).json({message : 'non-autorisé'});
         } else {
             Post.deleteOne({_id: req.params.id})

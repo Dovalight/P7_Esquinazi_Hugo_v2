@@ -32,16 +32,16 @@ export class CommentService{
         return this.http.post(`http://localhost:3000/api/publication/${postId}/comment`, formValue, {headers: newHeader});
       }
 
-      modifyComment(postId: string, commentId: string):Observable<comment>{
+      modifyComment(postId: string, commentId: string, comment: comment):Observable<any>{
         const token = sessionStorage.getItem('token');
         const newHeader = new HttpHeaders().set('Authorization', 'Bearer '+ token);
-        return this.http.put<comment>(`http://localhost:3000/api/publication/${postId}/comment/${commentId}`, {headers: newHeader})
+        return this.http.put(`http://localhost:3000/api/publication/${postId}/comment/${commentId}`, comment, {headers: newHeader})
       }
 
-      deleteComment(postId: string, commentId: string){
+      deleteComment(postId: string, commentId: string): Observable<any>{
         const token = sessionStorage.getItem('token');
         const newHeader = new HttpHeaders().set('Authorization', 'Bearer '+ token);
-        return this.http.delete<comment>(`http://localhost:3000/api/publication/${postId}/comment/${commentId}`, {headers: newHeader})
+        return this.http.delete(`http://localhost:3000/api/publication/${postId}/comment/${commentId}`, {headers: newHeader})
       }
 
 }

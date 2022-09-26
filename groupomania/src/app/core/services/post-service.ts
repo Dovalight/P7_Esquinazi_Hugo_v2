@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable} from "@angular/core";
-import { map, Observable, switchMap } from "rxjs";
+import { Observable } from "rxjs";
 import { post } from "../models/Post.model";
 
 @Injectable({

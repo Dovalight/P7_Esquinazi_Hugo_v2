@@ -19,10 +19,12 @@ exports.modifyComment = (req, res, next) => {
     delete commentObject._userId;
     Comment.findOne({_id: req.params.id})
         .then((comment)=> {
-            if (comment.userId != req.auth.userId) {
+            console.log(comment);
+            console.log(req.auth);
+            if (comment.userId != req.auth.userId && !req.auth.moderator) {
                 res.status(401).json({message: 'non-autorisé'});
             } else { 
-                Comment.updateOne({_id: req.params.id}, {...postObject, _id: req.params.id})
+                Comment.updateOne({_id: req.params.id}, {...commentObject, _id: req.params.id})
                 .then(()=> res.status(200).json({message: 'Commmentaire modifié'}))
                 .catch(error => res.status(401).json({error}));
             }
@@ -33,11 +35,17 @@ exports.modifyComment = (req, res, next) => {
 exports.deleteComment = (req, res, next) => {
     Comment.findOne({_id: req.params.id})
     .then(comment => {
-        if (comment.userId != req.auth.userId){
+        if(!comment){
+            res.status(401).json({message : 'commentaire non existant'});
+        }
+        console.log(comment)
+        console.log(req.params.id)
+        if (comment.userId != req.auth.userId && !req.auth.moderator){
+            
             res.status(401).json({message : 'non-autorisé'});
         } else {
                 Comment.deleteOne({_id: req.params.id})
-                .then(()=> res.status(200).json({message: 'Post supprimé'}))
+                .then(()=> res.status(200).json({message: 'commentaire supprimé'}))
                 .catch(error => res.status(401).json({error}));
             }
         })

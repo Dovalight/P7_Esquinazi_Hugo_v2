@@ -7,8 +7,8 @@
     color: #4E5166;
     margin: auto;
     margin-top: 55px !important ;
-    width: 400px;
-    height: 250px;
+    width: 450px;
+    height: 500px;
     border-radius: 15px;
 }
 
@@ -19,7 +19,17 @@
 }
 
 img{
-    width: 100%;
+    display: inline-block;
+    object-fit: cover;
+    width: auto; 
+    height: 200px;   
+}
+
+figure{
+    margin: 0;
+    overflow: hidden;
+    height: auto;
+    width: auto;
 }
 
 .post-like{
@@ -31,15 +41,19 @@ img{
 .like{
     border: solid 2px #4E5166;
     width: 30%;
-    padding: 5px;
+    padding: 15px;
     background: lighten(#4E5166, 40%);
     font-size: 16px;
     border-radius: 0 0 0 10px;
 }
+.like:hover{
+    border: solid 2px #888eb8;
+    background: lighten(#353c74, 40%);
+}
 
 .liked{
-    color: rgb(2, 170, 2);
-    border: 2px solid rgb(50, 150, 50);
+    color: rgb(11, 116, 11);
+    border: 2px solid rgb(27, 65, 27);
 }
 
 .dislike{
@@ -50,6 +64,10 @@ img{
     font-size: 16px;
     border-radius: 0 0 10px 0;
 }
+.dislike:hover{
+    border: solid 2px #888eb8;
+    background: lighten(#353c74, 40%);
+}
 
 .disliked{
     color: #8a3a3a;
@@ -58,11 +76,12 @@ img{
 
 .back{
     border-radius: 10px 0 0 0;
-    padding: 5px;
+    font-size: 20px;
+
 }
 .modify{
-    border-radius: 0 10px 0 0;
-    padding: 5px;
+    border-radius: 0 10px 0 0; 
+    font-size: 20px;
 }
 
 button{
@@ -80,10 +99,15 @@ button:hover{
 
 .delete{
     width: 30%;
+    font-size: 20px;
 }
 
 .post-body{
     padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    flex-direction: column;
 }
 
 .post-update{
@@ -97,17 +121,26 @@ button:hover{
     max-width: 70%;
 }
 
+.post-content{
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .save{
     border-radius:0 0 10px 10px;
 }
 
 .comment-input{
+    margin-left: 15px;
     padding: 10px;
+    border-radius: 10px 0 0 10px;
+    width: 250px;
 }
 
 .comment-button{
     border-radius: 0 10px 10px 0;
     padding: 10px;
+    
 }
 
 .comment{

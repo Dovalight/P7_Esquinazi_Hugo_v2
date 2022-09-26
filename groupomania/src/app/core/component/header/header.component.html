@@ -3,6 +3,6 @@
     <nav>
         <a routerLink="signup" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">S'enregister</a>
         <a routerLink="login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Se connecter</a>
-        <a>Se déconnecter</a>
+        <a (click)="onDisconnect()" routerLink="login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Se déconnecter</a>
     </nav>
 </header>

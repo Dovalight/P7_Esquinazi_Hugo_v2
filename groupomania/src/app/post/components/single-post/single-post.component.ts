@@ -4,7 +4,6 @@ import { post as Post } from '../../../core/models/Post.model';
 import { comment as Comment} from '../../../core/models/Comment.model';
 import { PostService } from '../../../core/services/post-service';
 import { CommentService } from '../../../core/services/comment-service';
-import { from } from 'rxjs';
 
 
 @Component({
@@ -21,7 +20,8 @@ image: string = '';
 file: any;
 comment: Comment = new Comment(); 
 commentaires: any[] = [];
-userId : string = '' ;
+userId: string = '' ;
+displayAction: boolean = false;
 
   constructor(private postServive: PostService,
     private commentService: CommentService,
@@ -34,8 +34,8 @@ userId : string = '' ;
     this.userId = sessionStorage.getItem('userId')?? ''
     this.postServive.getPostById(postId).subscribe((result)=>{
       this.post = result ;
-      console.log(this.post);
-      console.log(this.post.usersLiked.includes(this.userId));
+      const modo = JSON.parse(sessionStorage.getItem("moderator")?? 'false')
+      this.displayAction = this.post.userId === this.userId || modo
       this.commentService.getAllComments(this.post._id).subscribe((result)=>
       {
         this.commentaires = result;

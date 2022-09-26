@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import {Router} from '@angular/router';
 import { AuthService } from '../../core/services/auth-service';
 
@@ -21,12 +20,11 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(): void{
-    console.log(this.userEmail);
     this.service.logIn(this.userEmail, this.userPassword).subscribe(
       (result)=>{
-        console.log(result);
         sessionStorage.setItem("userId", result.userId)
         sessionStorage.setItem("token", result.token)
+        sessionStorage.setItem("moderator", result.moderator)
         this.router.navigateByUrl('/groupo');
     },
     (error)=>{

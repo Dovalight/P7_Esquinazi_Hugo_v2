@@ -6,8 +6,8 @@ import { SinglePostComponent } from './components/single-post/single-post.compon
 import { NewPostComponent } from './components/new-post/new-post.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostRoutingModule } from './post-routing.module';
-import { MainCommentComponent } from '../main-comment/main-comment.component';
-import { CommentListComponent } from '../comment-list/comment-list.component';
+import { MainCommentComponent } from '../comment/component/main-comment/main-comment.component';
+import { CommentListComponent } from '../comment/component/comment-list/comment-list.component';
 
 
 

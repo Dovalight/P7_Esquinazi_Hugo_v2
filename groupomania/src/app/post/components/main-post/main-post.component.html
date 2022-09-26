@@ -2,8 +2,10 @@
     <div class="post-content">
         <p> {{post.userId}} </p>
         <h2> {{post.name}} </h2>
-        <p> {{post.post}} </p>   
-        <img *ngIf="post.imageUrl" [src]="post.imageUrl" [alt]="post.name" />
+        <p> {{post.post}} </p> 
+        <figure>
+            <img *ngIf="post.imageUrl" [src]="post.imageUrl" [alt]="post.name" />
+        </figure>  
     </div>
     <div class="post-comment">
         <div class="div-like">
