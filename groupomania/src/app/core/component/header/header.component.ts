@@ -10,11 +10,15 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  connected!: boolean;
+  userId: string = '' ;
+  connected: boolean = false;
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    this.userId = sessionStorage.getItem('userId')?? ''
+    const modo = JSON.parse(sessionStorage.getItem("moderator")?? 'false')
+    this.connected = this.userId || modo
   }
 
  onDisconnect(){

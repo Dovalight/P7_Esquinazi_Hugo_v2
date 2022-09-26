@@ -1,8 +1,8 @@
 <header>
     <img src="../../../../assets/logo/icon-left-font-monochrome-white.svg" alt="logo groupomania" class="logo" />
     <nav>
-        <a routerLink="signup" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">S'enregister</a>
-        <a routerLink="login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Se connecter</a>
-        <a (click)="onDisconnect()" routerLink="login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Se déconnecter</a>
+        <a *ngIf="!connected" routerLink="signup" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">S'enregister</a>
+        <a *ngIf="!connected" routerLink="login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Se connecter</a>
+        <a *ngIf="connected" (click)="onDisconnect()" routerLink="login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Se déconnecter</a>
     </nav>
 </header>
