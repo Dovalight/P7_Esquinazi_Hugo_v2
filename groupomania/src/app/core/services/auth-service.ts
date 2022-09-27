@@ -29,7 +29,8 @@ export class AuthService {
     signUp(email:string, password: string): Observable<any>{
         const body = {
             email, 
-            password
+            password,
+            moderator : false
         }
         return this.htppClient.post(`http://localhost:3000/api/auth/signup`, body)
     }

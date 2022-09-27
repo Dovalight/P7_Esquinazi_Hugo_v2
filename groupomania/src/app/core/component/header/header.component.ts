@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.userId = sessionStorage.getItem('userId')?? ''
     const modo = JSON.parse(sessionStorage.getItem("moderator")?? 'false')
-    this.connected = this.userId || modo
+    this.connected = this.userId || modo 
   }
 
  onDisconnect(){
