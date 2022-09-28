@@ -23,8 +23,7 @@ export class SignupComponent implements OnInit {
     this.service.signUp(this.userEmail, this.userPassword).subscribe(
       (result)=>{
         console.log(result);
-        sessionStorage.setItem("userId", result.userId)
-        this.router.navigateByUrl('/groupo');
+        this.router.navigateByUrl('/login');
     },
     (error)=>{
       console.log(error);
